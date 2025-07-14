@@ -1,3 +1,7 @@
+![R](https://img.shields.io/badge/Made_with-R-blue?logo=r)
+![Shiny](https://img.shields.io/badge/Shiny-App-blueviolet?logo=rstudio)
+![Status](https://img.shields.io/badge/status-active-brightgreen)
+
 # 💼 Simulador de Préstamos Interactivo en R + Shiny
 
 📈 **Simula, visualiza y analiza préstamos financieros con tasas fijas o variables, capitalización personalizada y generación de reportes profesionales.**  
