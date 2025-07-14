@@ -357,12 +357,24 @@ server_logic <- function(input, output, session) {
         file.copy("reporte/plantilla.Rmd", tempReport, overwrite = TRUE)
         
         # GENERACIÓN DE GRÁFICOS
-        g1 <- ggplot(valores$tabla, aes(x = Mes, y = Cuota)) +
+        g1 <- ggplot(valores$tabla, aes(x = Pago, y = Cuota)) +
           geom_line(color = "#2980b9", size = 1.2) +
           labs(title = "Evolución de cuota mensual") +
           theme_minimal()
         
-        g2 <- ggplot(valores$tabla, aes(x = Mes, y = Saldo)) +
+        g2 <- ggplot(reshape2::melt(valores$tabla, id.vars = "Pago", measure.vars = c("Interes", "Abono", "AbonoExtra")),
+                     aes(x = factor(Pago), y = value, fill = variable)) +
+          geom_bar(stat = "identity") +
+          geom_text(aes(label = paste0("$", scales::comma(value))), position = position_stack(vjust=0.5), size = 2) +
+          coord_flip() +
+          labs(title = "Distribución del pago: Interés vs Abono vs Extra", x = "Periodo", y = "Valor mensual", fill = "Componente") +
+          scale_fill_manual(values = c("Interes" = "#FF6B6B", "Abono" = "#4ECDC4", "AbonoExtra" = "#3B9CFF")) +
+          scale_y_continuous(labels = scales::comma) +
+          theme_minimal(base_size = 10) +
+          theme(plot.title = element_text(face = "bold"),
+                legend.position = "bottom")
+        
+        g3 <- ggplot(valores$tabla, aes(x = Pago, y = Saldo)) +
           geom_line(color = "#e67e22", size = 1.2) +
           labs(title = "Evolución del saldo") +
           theme_minimal()
@@ -370,7 +382,7 @@ server_logic <- function(input, output, session) {
         tabla_cum <- valores$tabla
         tabla_cum$InteresAcum <- cumsum(tabla_cum$Interes)
         tabla_cum$AbonoAcum <- cumsum(tabla_cum$Abono)
-        g3 <- ggplot(tabla_cum, aes(x = Mes)) +
+        g4 <- ggplot(tabla_cum, aes(x = Pago)) +
           geom_line(aes(y = InteresAcum, color = "Intereses"), size = 1.2) +
           geom_line(aes(y = AbonoAcum, color = "Abono a capital"), size = 1.2) +
           scale_color_manual(values = c("Intereses" = "#e74c3c", "Abono a capital" = "#27ae60")) +
@@ -387,7 +399,8 @@ server_logic <- function(input, output, session) {
             plots = list(
               grafico1 = g1,
               grafico2 = g2,
-              grafico3 = g3
+              grafico3 = g3,
+              grafico4 = g4
             )
           ),
           envir = new.env(parent = globalenv())
