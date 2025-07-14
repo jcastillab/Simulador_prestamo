@@ -1,0 +1,73 @@
+---
+title: "Reporte de Simulación de Préstamo"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    number_sections: true
+    theme: cosmo
+params:
+  tabla: NULL
+  kpis: NULL
+  plots: NULL
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(ggplot2)
+library(scales)
+library(knitr)
+library(kableExtra)
+```
+
+# 📋 Resumen Ejecutivo
+
+Este informe presenta el análisis de un préstamo simulado, incluyendo el plan de amortización, los principales indicadores financieros y visualizaciones clave para facilitar la interpretación.
+
+# 📊 Indicadores Clave del Préstamo
+
+```{r}
+data.frame(
+  Indicador = c(
+    "Cuota mensual",
+    "Total pagado",
+    "Intereses totales",
+    "% de intereses",
+    "Costo Total del Crédito (CTC)",
+    "Tasa Efectiva Aproximada (TEA)"
+  ),
+  Valor = c(
+    comma(params$kpis$cuota),
+    comma(params$kpis$pagado),
+    comma(params$kpis$interes),
+    paste0(params$kpis$porcentaje, " %"),
+    params$kpis$ctc,
+    paste0(params$kpis$tea, " %")
+  )
+) %>%
+  kable("html") %>%
+  kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover"))
+
+```
+
+# 📆 Tabla de Amortización
+
+```{r}
+kable(params$tabla, format = "html", digits = 2) %>%
+  kable_styling(bootstrap_options = c("condensed", "striped"), full_width = TRUE)
+```
+
+# 📈 Visualizaciones del Préstamo
+
+## Evolución de la Cuota
+
+```{r}
+params$plots$grafico2
+```
+
+# Curva Acumulada de Pagos
+
+```{r}
+params$plots$grafico3
+```
