@@ -20,7 +20,11 @@ Este simulador te permite:
 
 ## 🖼️ Capturas de pantalla
 
-### 🎯 Panel Principal con KPIs Visuales
+### Panel principal
+
+![Panel principal](imagenes/Interfaz_principal.png)
+
+### 🎯 KPIs Visuales
 ![KPIs](imagenes/KPI.png)
 
 ### 📊 Gráfico de pagos detallado
