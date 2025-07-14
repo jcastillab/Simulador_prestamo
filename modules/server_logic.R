@@ -192,7 +192,9 @@ server_logic <- function(input, output, session) {
               axis.text.x = element_text(size=15),
               axis.text.y = element_text(size=15),
               legend.title = element_text(size = 14, face = "bold"),
-              legend.text = element_text(size = 12))
+              legend.text = element_text(size = 12),
+              #legend.position = c(1,1),   # Coordenadas relativas (x, y)
+              legend.justification = c("right", "top"))
     })
     
     output$grafico_saldo <- renderPlot({
