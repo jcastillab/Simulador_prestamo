@@ -128,7 +128,7 @@ La app está disponible en:
 
 **Juan Esteban Castilla Baquero**  
 📧 jcastillab17@gmail.com  
-🔗 [LinkedIn](https://www.linkedin.com/in/tu_usuario) | [GitHub](https://github.com/jcastillab)
+🔗 [LinkedIn](https://www.linkedin.com/in/jcastillab) | [GitHub](https://github.com/jcastillab)
 
 ---
 
